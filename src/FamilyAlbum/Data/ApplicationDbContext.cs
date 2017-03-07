@@ -37,5 +37,7 @@ namespace FamilyAlbum.Data
         }
 
         public DbSet<Family> Family { get; set; }
+
+        public DbSet<Image> Image { get; set; }
     }
 }
