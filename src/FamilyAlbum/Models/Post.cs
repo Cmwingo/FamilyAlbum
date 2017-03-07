@@ -16,5 +16,6 @@ namespace FamilyAlbum.Models
         public string Body { get; set; }
         [Timestamp]
         public byte[] TStamp { get; set; }
+        public virtual ICollection<Reply> Replies { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FamilyAlbum.Models
 {
@@ -20,5 +21,9 @@ namespace FamilyAlbum.Models
         public virtual ICollection<PhotoAlbum> PhotoAlbums { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        [InverseProperty("Sender")]
+        public virtual ICollection<Message> OutgoingMessages { get; set; }
+        [InverseProperty("Recipients")]
+        public virtual ICollection<Message> IncomingMessages { get; set; }
     }
 }
