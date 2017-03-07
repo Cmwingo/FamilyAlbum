@@ -10,5 +10,15 @@ namespace FamilyAlbum.Models
     public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Mobile { get; set; }
+        public string Home { get; set; }
+        public string Work { get; set; }
+        public DateTime Birthday { get; set; }
+        public Image AvatarImg { get; set; }
+        public virtual Family Family { get; set; }
+        public virtual ICollection<PhotoAlbum> PhotoAlbums { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

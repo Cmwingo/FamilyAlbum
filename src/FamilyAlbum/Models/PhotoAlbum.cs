@@ -11,6 +11,7 @@ namespace FamilyAlbum.Models
         [Key]
         public int PhotoAlbumId { get; set; }
         public virtual ApplicationUser User { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DateStart { get; set; }

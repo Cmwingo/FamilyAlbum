@@ -11,9 +11,12 @@ namespace FamilyAlbum.Models
         [Key]
         public int ImageId { get; set; }
         public virtual PhotoAlbum Album { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Caption { get; set; }
         public string FilePath { get; set; }
         public DateTime Date { get; set; }
+        [Timestamp]
+        public byte[] UploadTime { get; set; }
     }
 }
