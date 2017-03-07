@@ -21,9 +21,7 @@ namespace FamilyAlbum.Models
         public virtual ICollection<PhotoAlbum> PhotoAlbums { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
-        [InverseProperty("Sender")]
         public virtual ICollection<Message> OutgoingMessages { get; set; }
-        [InverseProperty("Recipients")]
-        public virtual ICollection<Message> IncomingMessages { get; set; }
+        public ICollection<ApplicationUserMessage> IncomingMessages { get; set; }
     }
 }
