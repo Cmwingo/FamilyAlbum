@@ -54,7 +54,7 @@ namespace FamilyAlbum.Controllers
 
         // GET: Images/Create
         public IActionResult Create()
-        {
+        {       
             return View();
         }
 
@@ -166,11 +166,11 @@ namespace FamilyAlbum.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            long size = file.Length;
             var webRoot = _env.WebRootPath;
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var currentUser = await _userManager.FindByIdAsync(userId);
-            var uploads = Path.Combine(webRoot, currentUser.Id);
+            var upload = Path.Combine(webRoot, "uploads");
+            var uploads = Path.Combine(upload, currentUser.Id);
 
             if(!Directory.Exists(uploads))
             {
@@ -180,15 +180,18 @@ namespace FamilyAlbum.Controllers
 
             if (file != null)
             {
+                long size = file.Length;
                 using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
-                return Ok(new { size, file.FileName });
+                var filePath = Path.Combine("/uploads/" + currentUser.Id, file.FileName);
+                TempData["Path"] = filePath;
+                return RedirectToAction("Create");
             }
             else
             {
-                return View();
+                return RedirectToAction("Create");
             }
         }
     }

@@ -53,6 +53,9 @@ namespace FamilyAlbum
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMemoryCache();
+            services.AddSession();
+
             services.AddMvc();
 
             // Add application services.
@@ -84,6 +87,8 @@ namespace FamilyAlbum
             app.UseStaticFiles();
 
             app.UseIdentity();
+
+            app.UseSession();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 

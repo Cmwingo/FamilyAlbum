@@ -26,7 +26,7 @@
                 @Html.DisplayNameFor(model => model.FilePath)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UploadTime)
+                Preview
             </th>
             <th></th>
         </tr>
@@ -47,7 +47,8 @@
                 @Html.DisplayFor(modelItem => item.FilePath)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UploadTime)
+                <img src="@item.FilePath" height="50" width="50"/>
+                <img src="~/uploads/9f116feb-eabc-4afe-9850-6d7b95040b81/wa.jpg" height="50" width="50"/>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ImageId">Edit</a> |
