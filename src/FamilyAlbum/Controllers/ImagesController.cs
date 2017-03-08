@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FamilyAlbum.Data;
 using FamilyAlbum.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace FamilyAlbum.Controllers
 {
@@ -151,6 +153,27 @@ namespace FamilyAlbum.Controllers
         public IActionResult Upload()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            long size = file.Length;
+
+            var filePath = Path.GetTempFileName();
+
+            if(file.Length > 0)
+            {
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                return Ok(new { size, filePath });
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

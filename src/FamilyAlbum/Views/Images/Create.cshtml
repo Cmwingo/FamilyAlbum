@@ -8,6 +8,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.new-destination').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: '@Url.Action("Upload")',
+                type: 'POST',
+                dataType: 'json',
+                data: $(this).serialize(),
+                success: function (result) {
+                    var resultMessage = 'You\'ve added a new destination to the database!<br>Id: ' + result.filePath + '<br>City: ' + result.size;
+                    $('#upload-result').html(resultMessage);
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
         $.ajax({
             type: 'GET',
             dataType: 'html',
@@ -62,6 +80,7 @@
     </div>
 </form>
 <div id="upload-view"></div>
+<div id="upload-result"></div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
