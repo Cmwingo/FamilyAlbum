@@ -7,16 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FamilyAlbum.Data;
 using FamilyAlbum.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace FamilyAlbum.Controllers
 {
     public class FamiliesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private IHostingEnvironment _env;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FamiliesController(ApplicationDbContext context)
+        public FamiliesController(ApplicationDbContext context, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context;
+            _env = env;
+            _userManager = userManager;
         }
 
         // GET: Families
@@ -147,5 +156,76 @@ namespace FamilyAlbum.Controllers
         {
             return _context.Family.Any(e => e.FamilyId == id);
         }
+
+        public IActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file, string familyId)
+        {
+            var webRoot = _env.WebRootPath;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            var currentFamily = familyId;
+            var upload = Path.Combine(webRoot, "uploads");
+            var uploads = Path.Combine(upload, currentUser.Id);
+
+            if (!Directory.Exists(uploads))
+            {
+                Directory.CreateDirectory(uploads);
+            }
+
+
+            if (file != null)
+            {
+                long size = file.Length;
+                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                var filePath = Path.Combine("/uploads/" + currentUser.Id, file.FileName);
+                TempData["Path"] = filePath;
+                return RedirectToAction("Edit", new { Id = currentFamily });
+            }
+            else
+            {
+                return RedirectToAction("Edit");
+            }
+        }
+
+        public async Task<IActionResult> DoUpload(IFormFile file, string familyId)
+        {
+            var webRoot = _env.WebRootPath;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            var currentFamily = familyId;
+            var upload = Path.Combine(webRoot, "uploads");
+            var uploads = Path.Combine(upload, currentUser.Id);
+
+            if (!Directory.Exists(uploads))
+            {
+                Directory.CreateDirectory(uploads);
+            }
+
+
+            if (file != null)
+            {
+                long size = file.Length;
+                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                var filePath = Path.Combine("/uploads/" + currentUser.Id, file.FileName);
+                TempData["Path"] = filePath;
+                return RedirectToAction("Edit", new { Id = currentFamily });
+            }
+            else
+            {
+                return RedirectToAction("Edit");
+            }
+        }
+
     }
 }
