@@ -9,16 +9,24 @@ using FamilyAlbum.Data;
 using FamilyAlbum.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Net.Http.Headers;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace FamilyAlbum.Controllers
 {
     public class ImagesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private IHostingEnvironment _env;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ImagesController(ApplicationDbContext context)
+        public ImagesController(ApplicationDbContext context, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context;
+            _env = env;
+            _userManager = userManager;   
         }
 
         // GET: Images
@@ -159,16 +167,24 @@ namespace FamilyAlbum.Controllers
         public async Task<IActionResult> Upload(IFormFile file)
         {
             long size = file.Length;
+            var webRoot = _env.WebRootPath;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            var uploads = Path.Combine(webRoot, currentUser.Id);
 
-            var filePath = Path.GetTempFileName();
-
-            if(file.Length > 0)
+            if(!Directory.Exists(uploads))
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                Directory.CreateDirectory(uploads);
+            }
+
+
+            if (file != null)
+            {
+                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                 {
-                    await file.CopyToAsync(stream);
+                    await file.CopyToAsync(fileStream);
                 }
-                return Ok(new { size, filePath });
+                return Ok(new { size, file.FileName });
             }
             else
             {
