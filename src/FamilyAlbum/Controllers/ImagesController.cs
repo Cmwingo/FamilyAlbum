@@ -54,7 +54,10 @@ namespace FamilyAlbum.Controllers
 
         // GET: Images/Create
         public IActionResult Create()
-        {       
+        {
+            var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).FirstOrDefault();
+            var photoAlbums = _context.PhotoAlbum.Where(pa => pa.User == currentUser).ToList();
+            ViewBag.PhotoAlbumId = new SelectList(photoAlbums, "PhotoAlbumId", "Name");
             return View();
         }
 
@@ -67,6 +70,13 @@ namespace FamilyAlbum.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(Request.Form["PhotoAlbumId"].ToString() == null)
+                {
+                    var albumId = Request.Form["PhotoAlbumId"].ToString();
+                    var intAlbumId = Int32.Parse(albumId);
+                    var currentAlbum = _context.PhotoAlbum.Where(pa => pa.PhotoAlbumId == intAlbumId).FirstOrDefault();
+                    currentAlbum.Images.Add(image);
+                }
                 _context.Add(image);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
