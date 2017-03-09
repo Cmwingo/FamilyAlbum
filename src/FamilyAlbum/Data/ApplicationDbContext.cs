@@ -36,6 +36,7 @@ namespace FamilyAlbum.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Family> Family { get; set; }
 
         public DbSet<Image> Image { get; set; }
