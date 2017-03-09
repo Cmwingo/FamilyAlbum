@@ -1,0 +1,67 @@
+@model FamilyAlbum.Models.PhotoAlbum
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            dataType: 'html',
+            url: '@Url.Action("Upload")',
+            success: function (result) {
+                $('#upload-view').html(result);
+                $('form').append("<input type='hidden' id='albumId' name='albumId' value='" + @Model.PhotoAlbumId + "' >");
+            }
+        });
+    });
+</script>
+
+
+<h2>Add</h2>
+
+<div>
+    <h4>PhotoAlbum</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateCreate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateEnd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateStart)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div id="upload-view"></div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PhotoAlbumId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
