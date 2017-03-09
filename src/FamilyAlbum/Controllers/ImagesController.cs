@@ -70,12 +70,13 @@ namespace FamilyAlbum.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(Request.Form["PhotoAlbumId"].ToString() == null)
+                if(Request.Form["PhotoAlbumId"].ToString() != null)
                 {
                     var albumId = Request.Form["PhotoAlbumId"].ToString();
                     var intAlbumId = Int32.Parse(albumId);
-                    var currentAlbum = _context.PhotoAlbum.Where(pa => pa.PhotoAlbumId == intAlbumId).FirstOrDefault();
+                    var currentAlbum = _context.PhotoAlbum.Where(pa => pa.PhotoAlbumId == intAlbumId).Include(pa => pa.Images).FirstOrDefault();
                     currentAlbum.Images.Add(image);
+                    _context.Entry(currentAlbum).State = EntityState.Modified;
                 }
                 _context.Add(image);
                 await _context.SaveChangesAsync();

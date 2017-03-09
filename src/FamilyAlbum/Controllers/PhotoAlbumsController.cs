@@ -42,7 +42,7 @@ namespace FamilyAlbum.Controllers
                 return NotFound();
             }
 
-            var photoAlbum = await _context.PhotoAlbum.SingleOrDefaultAsync(m => m.PhotoAlbumId == id);
+            var photoAlbum = await _context.PhotoAlbum.Include(pa => pa.Images).SingleOrDefaultAsync(m => m.PhotoAlbumId == id);
             if (photoAlbum == null)
             {
                 return NotFound();

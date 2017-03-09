@@ -10,7 +10,7 @@ namespace FamilyAlbum.Models
     {
         [Key]
         public int ImageId { get; set; }
-        public virtual PhotoAlbum Album { get; set; }
+        public virtual PhotoAlbum PhotoAlbum { get; set; }
         [Required]
         public string Name { get; set; }
         public string Caption { get; set; }
