@@ -7,13 +7,13 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    @if(ViewBag.Family == null)
+    @if (Model?.Family == null)
     {
-        <h3>Join a Family</h3>
+        <h3><a asp-controller="families">Join a Family</a></h3>
     }
     else
     {
-        <h3>Member of the @ViewBag.Family Family</h3>
+        <h3>Member of the @Model.Family.Name Family</h3>
     }
     <h2>Profile</h2>
     <h3>Welcome back @Model?.FirstName @Model?.LastName</h3>
