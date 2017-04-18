@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FamilyAlbum.Data;
 using FamilyAlbum.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FamilyAlbum.Controllers
 {
@@ -18,7 +19,9 @@ namespace FamilyAlbum.Controllers
         }
         public IActionResult Index()
         {
-            var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).FirstOrDefault();
+            var currentUser =  _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
+            var family = currentUser.Family;
+            ViewBag.Family = family.Name;
             return View(currentUser);
         }
 
