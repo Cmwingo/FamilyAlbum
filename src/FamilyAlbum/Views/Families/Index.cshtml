@@ -40,7 +40,12 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FamilyId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.FamilyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FamilyId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.FamilyId">Delete</a> |
+                @if (!item.Members.Contains(ViewBag.AppUser))
+                {
+                    <a asp-action="Join" asp-route-id="@item.FamilyId">Join</a>
+
+                }
             </td>
         </tr>
 }

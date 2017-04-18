@@ -31,7 +31,9 @@ namespace FamilyAlbum.Controllers
         // GET: Families
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Family.ToListAsync());
+            ViewBag.AppUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).FirstOrDefault();
+
+            return View(await _context.Family.Include(f => f.Members).ToListAsync());
         }
 
         // GET: Families/Details/5
@@ -227,5 +229,54 @@ namespace FamilyAlbum.Controllers
             }
         }
 
+        public async Task<IActionResult> Join(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var family = await _context.Family.Include(f => f.Members).SingleOrDefaultAsync(m => m.FamilyId == id);
+            if (family == null)
+            {
+                return NotFound();
+            }
+            return View(family);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Join(int id, [Bind("FamilyId,Motto,Name,PhotoURL,Members")] Family family)
+        {
+            if (id != family.FamilyId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).FirstOrDefault();
+                    var members = family?.Members;
+                    members.Add(currentUser);
+                    _context.Update(family);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FamilyExists(family.FamilyId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(family);
+        }
     }
 }
