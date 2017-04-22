@@ -10,7 +10,7 @@ namespace FamilyAlbum.Models
     public class Message
     {
         [Key]
-        public string MessageId { get; set; }
+        public int MessageId { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

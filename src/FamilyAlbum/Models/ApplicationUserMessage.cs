@@ -10,7 +10,7 @@ namespace FamilyAlbum.Models
         public string ApplicationUserId { get; set; }
         public ApplicationUser User { get; set; }
 
-        public string MessageId { get; set; }
+        public int MessageId { get; set; }
         public Message Message { get; set; }
     }
 }

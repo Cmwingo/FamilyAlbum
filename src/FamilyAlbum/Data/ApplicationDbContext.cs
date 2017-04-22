@@ -42,5 +42,7 @@ namespace FamilyAlbum.Data
         public DbSet<Image> Image { get; set; }
 
         public DbSet<PhotoAlbum> PhotoAlbum { get; set; }
+
+        public DbSet<Message> Message { get; set; }
     }
 }
