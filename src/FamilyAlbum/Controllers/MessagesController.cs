@@ -46,8 +46,9 @@ namespace FamilyAlbum.Controllers
         public IActionResult Create()
         {
             var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
+            ViewBag.Sender = currentUser.Id;
             var family = _context.Family.Where(fa => fa.FamilyId == currentUser.Family.FamilyId).Include(fa => fa.Members).FirstOrDefault();
-            ViewBag.Members = new SelectList(family.Members, "Id", "FirstName");
+            ViewBag.Members = family.Members;
             return View();
         }
 
@@ -56,10 +57,12 @@ namespace FamilyAlbum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MessageId,Body,PostTime,Read,Title")] Message message)
+        public async Task<IActionResult> Create([Bind("MessageId,Sender,Recipients,Body,PostTime,Read,Title")] Message message)
         {
             if (ModelState.IsValid)
             {
+                message.Sender = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).FirstOrDefault();
+
                 _context.Add(message);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

@@ -9,6 +9,10 @@ namespace FamilyAlbum.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropUniqueConstraint("FK_ApplicationUserMessage_Message_MessageId", "ApplicationUserMessage");
+            migrationBuilder.DropUniqueConstraint("PK_ApplicationUserMessage", "ApplicationUserMessage");
+            migrationBuilder.DropIndex("IX_ApplicationUserMessage_MessageId", "ApplicationUserMessage");
+            migrationBuilder.DropUniqueConstraint("PK_Message", "Message");
             migrationBuilder.AlterColumn<int>(
                 name: "MessageId",
                 table: "Message",

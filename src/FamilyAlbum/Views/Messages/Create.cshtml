@@ -12,9 +12,13 @@
         <h4>Message</h4>
         <hr />
         <div class="form-group">
+            <label asp-for="Sender" hidden class="col-md-2 control-label"></label>
+            <input asp-for="Sender" value="@ViewBag.Sender" />
+        </div>
+        <div class="form-group">
             <label asp-for="Recipients" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                @Html.DropDownList("Members")
+                <select asp-for="Recipients" class="form-control" asp-items="@(new SelectList(ViewBag.Members, ViewBag.Members, "FirstName"))"></select>
             </div>
         </div>
         <div class="form-group">

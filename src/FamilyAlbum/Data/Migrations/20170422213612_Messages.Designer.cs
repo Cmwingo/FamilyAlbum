@@ -8,7 +8,7 @@ using FamilyAlbum.Data;
 namespace FamilyAlbum.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170422201216_Messages")]
+    [Migration("20170422213612_Messages")]
     partial class Messages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
