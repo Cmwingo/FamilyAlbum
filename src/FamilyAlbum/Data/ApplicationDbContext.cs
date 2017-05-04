@@ -44,5 +44,7 @@ namespace FamilyAlbum.Data
         public DbSet<PhotoAlbum> PhotoAlbum { get; set; }
 
         public DbSet<Message> Message { get; set; }
+
+        public DbSet<Post> Post { get; set; }
     }
 }

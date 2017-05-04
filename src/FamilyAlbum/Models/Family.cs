@@ -15,6 +15,7 @@ namespace FamilyAlbum.Models
         public string Name { get; set; }
         public string Motto { get; set; }
         public string PhotoURL { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<ApplicationUser> Members { get; set; }
     }
 }

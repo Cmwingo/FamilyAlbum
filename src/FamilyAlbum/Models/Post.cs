@@ -14,8 +14,10 @@ namespace FamilyAlbum.Models
         public virtual ApplicationUser User { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+        public DateTime PostTime { get; set; }
         [Timestamp]
         public byte[] TStamp { get; set; }
+        public virtual Family PostFamily { get; set; }
         public virtual ICollection<Reply> Replies { get; set; }
     }
 }

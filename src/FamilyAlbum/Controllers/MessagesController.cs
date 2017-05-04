@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FamilyAlbum.Data;
 using FamilyAlbum.Models;
 using FamilyAlbum.Models.MessageViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FamilyAlbum.Controllers
 {
+    [Authorize]
     public class MessagesController : Controller
     {
         private readonly ApplicationDbContext _context;
