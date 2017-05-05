@@ -46,5 +46,7 @@ namespace FamilyAlbum.Data
         public DbSet<Message> Message { get; set; }
 
         public DbSet<Post> Post { get; set; }
+
+        public DbSet<Reply> Reply { get; set; }
     }
 }

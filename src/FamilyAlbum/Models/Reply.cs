@@ -11,6 +11,7 @@ namespace FamilyAlbum.Models
         [Key]
         public int ReplyId { get; set; }
         public string Body { get; set; }
+        public DateTime ReplyTime { get; }
         public virtual Post Post { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
