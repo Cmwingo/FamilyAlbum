@@ -35,7 +35,7 @@ namespace FamilyAlbum.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post.SingleOrDefaultAsync(m => m.PostId == id);
+            var post = await _context.Post.Where(m => m.PostId == id).Include(m => m.Replies).ThenInclude(r => r.User).SingleOrDefaultAsync();
             if (post == null)
             {
                 return NotFound();

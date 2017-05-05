@@ -41,3 +41,26 @@
     <a asp-action="Edit" asp-route-id="@Model.PostId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<div>
+    <h5>Replies:</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Body)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var reply in Model.Replies)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => reply.Body) by @reply.User?.FirstName
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
