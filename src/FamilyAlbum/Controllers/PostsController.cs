@@ -26,6 +26,14 @@ namespace FamilyAlbum.Controllers
         {
             return View(await _context.Post.ToListAsync());
         }
+        // GET: Family Posts
+        public async Task<IActionResult> FamilyPosts()
+        {
+            var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
+
+            return View(await _context.Post.Where(p => p.PostFamily == currentUser.Family).ToListAsync());
+        }
+
 
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -64,6 +72,7 @@ namespace FamilyAlbum.Controllers
                 var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).ThenInclude(fa => fa.Posts).FirstOrDefault();
                 var currentFamily = currentUser.Family;
                 post.User = currentUser;
+                post.PostFamily = currentFamily;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 currentFamily.Posts.Add(post);
