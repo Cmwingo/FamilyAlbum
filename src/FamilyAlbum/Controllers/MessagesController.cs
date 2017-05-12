@@ -43,7 +43,8 @@ namespace FamilyAlbum.Controllers
             {
                 return NotFound();
             }
-
+            message.Read = true;
+            await _context.SaveChangesAsync();
             return View(message);
         }
 

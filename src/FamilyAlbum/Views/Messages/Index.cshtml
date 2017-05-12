@@ -14,16 +14,12 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Read)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Body)
             </th>
             <th></th>
         </tr>
@@ -36,16 +32,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Read)
+                    @if (item.Read == false)
+                    {
+                        <img src="~/images/newsm.png" />
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.MessageId">Edit</a> |

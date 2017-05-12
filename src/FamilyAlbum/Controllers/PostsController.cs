@@ -76,7 +76,7 @@ namespace FamilyAlbum.Controllers
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 currentFamily.Posts.Add(post);
-                return RedirectToAction("Index");
+                return RedirectToAction("FamilyPosts");
             }
             return View(post);
         }
