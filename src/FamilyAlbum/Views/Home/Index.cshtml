@@ -9,7 +9,12 @@
 {
     @if (Model?.Family == null)
     {
-        <h3><a asp-controller="families">Join a Family</a></h3>
+        <div id="join-family">
+            <h2>To continue please <a asp-controller="families">join</a> one of our families</h2>
+            <br /><h4>or</h4><br />
+            <h2><a asp-controller="families" asp-action="create">Create</a> one of your own</h2>
+            <h3><a asp-controller="families">Join a Family</a></h3>
+        </div>
     }
     else
     {
@@ -25,6 +30,9 @@
     <a asp-controller="images">Images</a>
     <br />
     <a asp-controller="messages">Messages</a>
+    <br />
+    <a asp-controller="posts">Posts</a>
+
 }
 else
 {
