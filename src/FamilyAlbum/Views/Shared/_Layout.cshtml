@@ -40,7 +40,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a></li>
+                        <li><a asp-area="" asp-controller="Posts" asp-action="FamilyPosts">Posts</a></li>
                         <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messages</a></li>
                         <li><a asp-area="" asp-controller="PhotoAlbums" asp-action="Index">Albums</a></li>
                     }
