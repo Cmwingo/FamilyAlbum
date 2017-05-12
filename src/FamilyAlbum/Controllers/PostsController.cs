@@ -31,7 +31,7 @@ namespace FamilyAlbum.Controllers
         {
             var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
 
-            return View(await _context.Post.Where(p => p.PostFamily == currentUser.Family).ToListAsync());
+            return View(await _context.Post.Where(p => p.PostFamily == currentUser.Family).Include(p => p.User).ToListAsync());
         }
 
 
