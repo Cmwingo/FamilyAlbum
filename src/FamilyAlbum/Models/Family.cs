@@ -17,5 +17,6 @@ namespace FamilyAlbum.Models
         public string PhotoURL { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<ApplicationUser> Members { get; set; }
+        public virtual ICollection<PhotoAlbum> Albums { get; set; }
     }
 }

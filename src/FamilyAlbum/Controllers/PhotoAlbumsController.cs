@@ -43,6 +43,14 @@ namespace FamilyAlbum.Controllers
 
         }
 
+        //GET: Family's PhotoAlbums
+        public async Task<IActionResult> FamilyAlbums()
+        {
+            var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
+
+            return View(await _context.PhotoAlbum.Where(pa => pa.Family == currentUser.Family).Include(pa => pa.Images).ToListAsync());
+
+        }
 
         // GET: PhotoAlbums/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -72,16 +80,17 @@ namespace FamilyAlbum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PhotoAlbumId,DateCreate,DateEnd,DateStart,Description,Name")] PhotoAlbum photoAlbum)
+        public async Task<IActionResult> Create([Bind("PhotoAlbumId,DateEnd,DateStart,Description,Name")] PhotoAlbum photoAlbum)
         {
             if (ModelState.IsValid)
             {
-                var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                var currentUser = await _userManager.FindByIdAsync(userId);
+                var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
+                var currentFamily = currentUser.Family;
                 photoAlbum.User = currentUser;
+                photoAlbum.Family = currentFamily;
                 _context.Add(photoAlbum);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("UserAlbums");
             }
             return View(photoAlbum);
         }
@@ -107,7 +116,7 @@ namespace FamilyAlbum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PhotoAlbumId,DateCreate,DateEnd,DateStart,Description,Name")] PhotoAlbum photoAlbum)
+        public async Task<IActionResult> Edit(int id, [Bind("PhotoAlbumId,DateEnd,DateStart,Description,Name")] PhotoAlbum photoAlbum)
         {
             if (id != photoAlbum.PhotoAlbumId)
             {
@@ -159,10 +168,14 @@ namespace FamilyAlbum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var photoAlbum = await _context.PhotoAlbum.SingleOrDefaultAsync(m => m.PhotoAlbumId == id);
+            var photoAlbum = await _context.PhotoAlbum.Where(m => m.PhotoAlbumId == id).Include(m => m.Images).FirstOrDefaultAsync();
+            foreach(var image in photoAlbum.Images)
+            {
+                _context.Image.Remove(image);
+            }
             _context.PhotoAlbum.Remove(photoAlbum);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("UserAlbums");
         }
 
         private bool PhotoAlbumExists(int id)

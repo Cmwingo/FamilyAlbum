@@ -13,17 +13,24 @@
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="DateEnd" class="col-md-2 control-label"></label>
+            <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="DateEnd" class="form-control" />
-                <span asp-validation-for="DateEnd" class="text-danger" />
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="DateStart" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="DateStart" class="form-control" />
+                <input asp-for="DateStart" class="form-control" type="date"/>
                 <span asp-validation-for="DateStart" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateEnd" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DateEnd" class="form-control" type="date"/>
+                <span asp-validation-for="DateEnd" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
@@ -31,13 +38,6 @@
             <div class="col-md-10">
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Name" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
@@ -49,7 +49,7 @@
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="UserAlbums">Back to List</a>
 </div>
 
 @section Scripts {

@@ -11,13 +11,13 @@ namespace FamilyAlbum.Models
         [Key]
         public int PhotoAlbumId { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public virtual Family Family { get; set; }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         [Timestamp]
-        public byte[] DateCreate { get; set; }
         public virtual ICollection<Image> Images { get; set; }
     }
 }
