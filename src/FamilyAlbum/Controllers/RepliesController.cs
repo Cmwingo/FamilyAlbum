@@ -70,7 +70,7 @@ namespace FamilyAlbum.Controllers
                 _context.Add(newReply);
                 currentPost.Replies.Add(newReply);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Redirect("/posts/familyposts");
             }
             return View(reply);
         }

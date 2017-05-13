@@ -59,7 +59,8 @@ else
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a> |
+                    <a asp-controller="Replies" asp-action="Create" asp-route-postId="@item.PostId">Reply</a>
                 </td>
             </tr>
     }
