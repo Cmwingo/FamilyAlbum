@@ -15,7 +15,9 @@ namespace FamilyAlbum.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateStart { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateEnd { get; set; }
         [Timestamp]
         public virtual ICollection<Image> Images { get; set; }
