@@ -52,10 +52,14 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+    <h5>@ViewBag.Result</h5>
 </div>
-<div id="upload-view"></div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.PhotoAlbumId">Edit</a> |
     <a asp-action="Index">Back to List</a>
+    <br /><br /><br />
+    <div id="upload-view" style="display:block"></div>
 </div>
+
+
 

@@ -205,12 +205,11 @@ namespace FamilyAlbum.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file, string photoAlbumId)
+        public async Task<IActionResult> Upload(IFormFile file, string albumId, string name)
         {
             var webRoot = _env.WebRootPath;
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var currentUser = await _userManager.FindByIdAsync(userId);
-            var currentAlbum = photoAlbumId;
             var upload = Path.Combine(webRoot, "uploads");
             var uploads = Path.Combine(upload, currentUser.Id);
 
@@ -228,12 +227,21 @@ namespace FamilyAlbum.Controllers
                     await file.CopyToAsync(fileStream);
                 }
                 var filePath = Path.Combine("/uploads/" + currentUser.Id, file.FileName);
-                TempData["Path"] = filePath;
-                return RedirectToAction("Add", new { Id = currentAlbum });
+                var currentAlbum = await _context.PhotoAlbum.Where(pa => pa.PhotoAlbumId.ToString() == albumId).Include(pa => pa.Images).FirstOrDefaultAsync();
+                Image newImage = new Image
+                {
+                    Name = name,
+                    FilePath = filePath
+                };
+                currentAlbum.Images.Add(newImage);
+                await _context.SaveChangesAsync();
+                ViewBag.Result = "File Uploaded!";
+                return RedirectToAction("Add", new { id = albumId });
             }
             else
             {
-                return RedirectToAction("Add");
+                ViewBag.Result = "Error Uploading!";
+                return RedirectToAction("Add", new { id = albumId });
             }
         }
 
