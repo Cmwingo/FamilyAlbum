@@ -42,7 +42,13 @@
                     {
                         <li><a asp-area="" asp-controller="Posts" asp-action="FamilyPosts">Posts</a></li>
                         <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messages</a></li>
-                        <li><a asp-area="" asp-controller="PhotoAlbums" asp-action="Index">Albums</a></li>
+                        <li class="dropdown">
+                            <a asp-controller="PhotoAlbums" asp-action="FamilyAlbums" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Albums<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-controller="PhotoAlbums" asp-action="FamilyAlbums">Family Albums</a></li>
+                                <li><a asp-controller="PhotoAlbums" asp-action="UserAlbums">My Albums</a></li>
+                            </ul>
+                        </li>
                     }
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
