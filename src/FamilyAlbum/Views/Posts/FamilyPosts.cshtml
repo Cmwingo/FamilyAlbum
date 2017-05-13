@@ -34,6 +34,9 @@ else
                 <th>
                     Posted By
                 </th>
+                <th>
+                    Replies
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -55,6 +58,9 @@ else
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @item?.Replies?.Count
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
