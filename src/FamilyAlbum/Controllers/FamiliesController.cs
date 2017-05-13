@@ -31,7 +31,8 @@ namespace FamilyAlbum.Controllers
         // GET: Families
         public async Task<IActionResult> Index()
         {
-            ViewBag.AppUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).FirstOrDefault();
+            var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
+            ViewBag.Family = currentUser.Family;
 
             return View(await _context.Family.Include(f => f.Members).ToListAsync());
         }
