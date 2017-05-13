@@ -72,4 +72,15 @@ else
     }
         </tbody>
     </table>
+    @foreach (var item in Model)
+    {
+        <div class="post">
+            <div class="list-group">
+                <a asp-action="Details" asp-route-id="@item.PostId" class="list-group-item">
+                    <h4 class="list-group-item-heading">@Html.DisplayFor(modelItem => item.Title)<p class="reply-badge-text">Replies <span class="badge">@item?.Replies?.Count</span></p></h4>
+                    <p class="list-group-item-text">-- Posted by @Html.DisplayFor(modelItem => item.User.FirstName) on @Html.DisplayFor(modelItem => item.PostTime)</p>                    
+                </a>
+            </div>
+        </div>
+    }
 }

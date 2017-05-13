@@ -35,3 +35,20 @@
 body {
     background-image: url(../images/parchment-background.jpg);
 }
+
+/*Posts*/
+.reply-badge-text {
+    text-align:right;
+    float:right;
+}
+
+.post-title-text {
+    display: inline;
+    font-size: 90%;
+    font-style: italic;
+}
+
+.panel-heading {
+    font-size: 120%;
+    font-weight: bold;
+}
