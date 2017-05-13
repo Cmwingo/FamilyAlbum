@@ -275,7 +275,7 @@ namespace FamilyAlbum.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return Redirect("/");
             }
             return View(family);
         }

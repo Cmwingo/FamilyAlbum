@@ -1,53 +1,65 @@
 @model IEnumerable<FamilyAlbum.Models.Family>
+@inject UserManager<ApplicationUser> UserManager;
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{ 
+    var user = await UserManager.GetUserAsync(User);
+}
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Motto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhotoURL)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Motto)                
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhotoURL)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FamilyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FamilyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FamilyId">Delete</a>
-                @if (ViewBag.Family == null)
-                {
-                    <p>| </p><a asp-action="Join" asp-route-id="@item.FamilyId">Join</a>
+@if (user.Family == null)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Motto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhotoURL)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model)
+    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Motto)                
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhotoURL)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FamilyId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.FamilyId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FamilyId">Delete</a>
+                    @if (ViewBag.Family == null)
+                    {
+                       <a asp-action="Join" asp-route-id="@item.FamilyId"> |Join</a>
 
-                }
-            </td>
-        </tr>
+                    }
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <h2>You are already a member of the @user?.Family.Name family!</h2>
+}
