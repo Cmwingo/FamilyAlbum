@@ -61,11 +61,13 @@ namespace FamilyAlbum.Controllers
             {
                 var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).FirstOrDefault();
                 var currentPost = await _context.Post.Where(p => p.PostId == reply.PostId).FirstOrDefaultAsync();
+                var currentTime = DateTime.Now;
                 Reply newReply = new Reply()
                 {
                     Body = reply.Body,
                     Post = currentPost,
-                    User = currentUser
+                    User = currentUser,
+                    ReplyTime = currentTime
                 };
                 _context.Add(newReply);
                 currentPost.Replies.Add(newReply);
