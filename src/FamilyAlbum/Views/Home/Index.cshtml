@@ -3,17 +3,20 @@
 }
 
 @model FamilyAlbum.Models.ApplicationUser
-<h1>Family Album</h1>
+<h1 id="title" class="fancy-handwriting centered">Family Album</h1>
+<div id="old-photo-album-wrapper">
+    <img id="old-photo-album" src="~/images/old_photo_album.png"/>
+</div>
 
 @if (User.Identity.IsAuthenticated)
 {
     @if (Model?.Family == null)
     {
         <div id="join-family">
-            <h2>To continue please <a asp-controller="families">join</a> one of our families</h2>
-            <br /><h4>or</h4><br />
-            <h2><a asp-controller="families" asp-action="create">Create</a> one of your own</h2>
-            <h3><a asp-controller="families">Join a Family</a></h3>
+            <h1 class="fancy-handwriting centered">Please <a asp-controller="families">join</a> one of our families</h1>
+            <br /><h2 class="fancy-handwriting centered">or</h2><br />
+            <h2 class="fancy-handwriting centered"><a asp-controller="families" asp-action="create">Create</a> one of your own to continue...</h2>
+            <h1><a asp-controller="families">Join a Family</a></h1>
         </div>
     }
     else
@@ -45,5 +48,5 @@
 }
 else
 {
-    <h3>Please log in or register your new account</h3>
+    <h3 class="centered">Please log in or register your new account</h3>
 }

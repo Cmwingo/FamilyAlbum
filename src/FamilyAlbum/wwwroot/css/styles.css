@@ -1,4 +1,14 @@
-﻿/*Navbar*/
+﻿/*Helper Classes*/
+
+.centered {
+    text-align: center;
+}
+
+.fancy-handwriting{
+    font-family: 'Rochester', cursive;
+}
+
+/*Navbar*/
 #nav-main {
     background-color: rgb(84, 26, 33);
 }
@@ -143,6 +153,20 @@ body {
   color: #888;
 }
 
-.fancy-handwriting{
-    font-family: 'Rochester', cursive;
+/*Home/Index*/
+#title {
+    font-size: 350%;
+}
+
+#old-photo-album-wrapper {
+    margin: auto;
+    text-align: center;
+}
+#old-photo-album {
+    width: 30%;
+}
+
+/*Posts*/
+.post .list-group-item {
+    background-color: rgb(247, 244, 202);
 }
