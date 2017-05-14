@@ -52,7 +52,19 @@
     </div>
     @if (user?.Family != null)
     {
-        <div id="parchment"><h2>@user?.Family?.Name Family</h2></div>
+        <div id="parchment">
+            <h2>@user?.Family?.Name Family</h2>
+            @if(user.Family.PhotoURL == null)
+            {
+                <a asp-controller="families" asp-action="Edit" asp-route-id="@user.Family.FamilyId">Add a family photo</a>
+            }
+            else
+            {
+                <div class="portrait-wrapper">
+                    <img id="family-photo" src="@user.Family.PhotoURL"/>
+                </div>
+            }
+        </div>
     }
     <div class="container body-content">
         @RenderBody()
