@@ -10,6 +10,26 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div id="messages">
+
+    @foreach (var item in Model)
+    {
+        @foreach (var recipient in item.Recipients)
+        {
+            @if (recipient.ApplicationUserId == ViewBag.CurrentUserId)
+            {
+                <div class="message">
+                    @if (item.Read == false)
+                    {
+                        <img src="~/images/newsm.png" class="message-new" />
+                    }
+                    <p class="message-sender">@item?.Sender?.FirstName</p>
+                    <a asp-action="Details" asp-route-id="@item.MessageId" class="message-link"><h5 class="message-subject">@item?.Title</h5></a>
+                 </div>                
+            }
+        }
+    }
+</div>
 <table class="table">
     <thead>
         <tr>
