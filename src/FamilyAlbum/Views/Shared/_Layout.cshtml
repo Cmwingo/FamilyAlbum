@@ -67,7 +67,10 @@
             </div>
         </div>
     </div>
-    <div id="parchment"><h2>@user?.Family?.Name Family</h2></div>
+    @if (user?.Family != null)
+    {
+        <div id="parchment"><h2>@user?.Family?.Name Family</h2></div>
+    }
     <div class="container body-content">
         @RenderBody()
         <hr />
