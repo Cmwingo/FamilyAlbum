@@ -44,6 +44,7 @@ namespace FamilyAlbum.Controllers
             }
 
             var post = await _context.Post.Where(m => m.PostId == id).Include(m => m.Replies).ThenInclude(r => r.User).SingleOrDefaultAsync();
+            post.Replies = post.Replies.OrderByDescending(r => r.ReplyTime).ToList();
             if (post == null)
             {
                 return NotFound();
