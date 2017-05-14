@@ -170,3 +170,12 @@ body {
 .post .list-group-item {
     background-color: rgb(247, 244, 202);
 }
+
+.panel-default > .post-heading {
+    background-color: rgb(84, 26, 33);
+    color: rgb(232, 229, 176);
+}
+
+.panel-default > .post-body {
+    background-color:rgb(247, 244, 202)
+}

@@ -7,39 +7,42 @@
 <h2>Details</h2>
 <h4>Post</h4>
 <div class="panel panel-default">
-    <div class="panel-heading">@Html.DisplayFor(model => model.Title)
+    <div class="panel-heading post-heading">@Html.DisplayFor(model => model.Title)
         <p class="post-title-text">-- posted by @Model?.User?.FirstName on @Html.DisplayFor(model => model.PostTime)</p>
     </div>
-    <div class="panel-body">@Html.DisplayFor(model => model.Body)</div>
+    <div class="panel-body post-body">@Html.DisplayFor(model => model.Body)</div>
 </div>
 <a asp-controller="Replies" asp-action="Create" asp-route-postId="@Model.PostId">Reply</a>
 <h4>Replies:</h4>
-@foreach (var reply in Model.Replies)
-{
-    TimeSpan timeSpan = DateTime.Now - reply.ReplyTime;
-    <ul class="list-group">
-        <li class="list-group-item">
-            @if(timeSpan.Days > 0){
-                <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Days days ago</h4>
-            }
-            else if (timeSpan.Hours > 0)
-            {
-                <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Hours hours ago</h4>
+<div class="post">
+    @foreach (var reply in Model.Replies)
+    {
+        TimeSpan timeSpan = DateTime.Now - reply.ReplyTime;
+        <ul class="list-group">
+            <li class="list-group-item post">
+                @if (timeSpan.Days > 0)
+                {
+                    <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Days days ago</h4>
+                }
+                else if (timeSpan.Hours > 0)
+                {
+                    <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Hours hours ago</h4>
 
-            }
-            else if (timeSpan.Minutes > 0)
-            {
-                <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Minutes minutes ago</h4>
+                }
+                else if (timeSpan.Minutes > 0)
+                {
+                    <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Minutes minutes ago</h4>
 
-            }
-            else
-            {
-                <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Seconds seconds ago</h4>
-            }
-            <p class="list-group-item-text">@Html.DisplayFor(modelItem => reply.Body)</p>
-        </li>
-    </ul>
-}
+                }
+                else
+                {
+                    <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Seconds seconds ago</h4>
+                }
+                <p class="list-group-item-text">@Html.DisplayFor(modelItem => reply.Body)</p>
+            </li>
+        </ul>
+    }
+</div>
 
 <div>
     <h4>Post</h4>
