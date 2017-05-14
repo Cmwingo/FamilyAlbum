@@ -34,12 +34,6 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
-                    @if (user?.Family != null)
-                    {
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    }
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
@@ -48,21 +42,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    @if (user?.Family != null)
-                    {
-                        <li><a asp-area="" asp-controller="Posts" asp-action="FamilyPosts">Posts</a></li>
-                        <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messages</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Albums<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a asp-controller="PhotoAlbums" asp-action="FamilyAlbums">Family Albums</a></li>
-                                <li><a asp-controller="PhotoAlbums" asp-action="UserAlbums">My Albums</a></li>
-                            </ul>
-                        </li>
-                    }
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
+                @await Component.InvokeAsync("NavMenu")
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>

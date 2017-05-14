@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model FamilyAlbum.Models.Family
+
+@if (Model != null)
+{
+    <ul class="nav navbar-nav">
+        <li><a asp-area="" asp-controller="Posts" asp-action="FamilyPosts">Posts</a></li>
+        <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messages</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Albums<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a asp-controller="PhotoAlbums" asp-action="FamilyAlbums">Family Albums</a></li>
+                <li><a asp-controller="PhotoAlbums" asp-action="UserAlbums">My Albums</a></li>
+            </ul>
+        </li>
+    </ul>
+}

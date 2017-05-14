@@ -20,11 +20,6 @@ namespace FamilyAlbum.Controllers
         public IActionResult Index()
         {
             var currentUser =  _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
-            //if(currentUser != null)
-            //{
-            //    var family = currentUser?.Family;
-            //    ViewBag.Family = family.Name;
-            //}
             return View(currentUser);
         }
 
