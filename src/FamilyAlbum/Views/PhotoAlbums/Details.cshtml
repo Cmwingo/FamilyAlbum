@@ -5,6 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2 class="fancy-handwriting">@Html.DisplayFor(model => model.Name) Album</h2>
+<h4 class="fancy-handwriting">@Html.DisplayFor(model => model.DateStart) - @Html.DisplayFor(model => model.DateEnd)</h4>
+@if (Model.Images != null)
+{
+    <div id="photoalbum-images">
+        @foreach (var image in Model.Images)
+        {
+            <div class="photoalbum-image-wrapper flex-item">
+                <p>@Html.DisplayFor(modelImage => image.Name)</p>
+                <img class="photoalbum-image" src="@image.FilePath" />
+            </div>
+        }
+     </div>
+}
+
+
+
+
 <h2>Details</h2>
 
 <div>
@@ -42,11 +60,3 @@
     <a asp-action="UserAlbums">Back to List</a> |
     <a asp-action="Add" asp-route-id="@Model.PhotoAlbumId">Add a photo</a>
 </div>
-
-@if (Model.Images != null)
-{
-    @foreach (var image in Model.Images)
-    {
-        <img src="@image.FilePath" height="100" width="100" />
-    }
-}

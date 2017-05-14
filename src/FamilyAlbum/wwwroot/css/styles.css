@@ -94,3 +94,40 @@ body {
     text-align: center;
     margin: auto;
 }
+
+/*PhotoAlbums/Detail*/
+#photoalbum-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.photoalbum-image-wrapper {
+    margin-top: 2%;
+    width: auto;
+    position: relative;
+    text-align: center;
+    flex-basis: 20%;
+}
+
+.photoalbum-image {
+    width: auto;
+    max-height: 350px;
+    border: 10px solid #fff;
+    border-bottom: 45px solid #fff;
+    -webkit-box-shadow: 3px 3px 3px #777;
+    -moz-box-shadow: 3px 3px 3px #777;
+    box-shadow: 3px 3px 3px #777;
+}
+
+.photoalbum-image-wrapper p {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 0px;
+  color: #888;
+}
+
+.fancy-handwriting{
+    font-family: 'Rochester', cursive;
+}
