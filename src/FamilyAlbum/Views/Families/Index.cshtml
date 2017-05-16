@@ -16,7 +16,7 @@
     <p>
         <a asp-action="Create">Create New</a>
     </p>
-    <table class="table">
+    <table class="table family-table">
         <thead>
             <tr>
                 <th>
@@ -26,7 +26,7 @@
                     @Html.DisplayNameFor(model => model.Motto)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PhotoURL)
+                    Photo
                 </th>
                 <th></th>
             </tr>
@@ -42,12 +42,12 @@
                     @Html.DisplayFor(modelItem => item.Motto)                
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PhotoURL)
+                    <img class="family-index-photo" src="@Html.DisplayFor(modelItem => item.PhotoURL)" />
                 </td>
                 <td>
                     @if (ViewBag.Family == null)
                     {
-                       <a asp-action="Join" asp-route-id="@item.FamilyId"> |Join</a>
+                       <a asp-action="Join" asp-route-id="@item.FamilyId"> Join</a>
 
                     }
                 </td>

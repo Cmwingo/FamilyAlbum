@@ -25,6 +25,33 @@
     color: rgb(232, 229, 176);
 }
 
+@media (max-width: 990px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
 /*Parchment Header*/
 #parchment {
     background-image: url(../images/parchment.jpg);
@@ -33,6 +60,7 @@
     height: 150px;
     text-align: center;
     font-family: 'Rochester', cursive;
+    overflow:visible;
 }
 
 #parchment h2 {
@@ -50,9 +78,8 @@
     display: inline-block;
 }
 #family-photo {
-    width: 100%;
-    height: auto;
-    margin-top: -50px;
+    width: auto;
+    height: 100%;
 }
 
 /*Main Body*/
@@ -60,6 +87,22 @@
 body {
     background-image: url(../images/parchment-background.jpg);
 }
+
+/*Family/Index*/
+
+.family-index-photo {
+    width: auto;
+    height: 100px;
+}
+
+.family-table > thead > tr > th {
+    border-bottom: 2px solid darkgrey;
+}
+
+.family-table > tbody > tr > td {
+    border-bottom: 2px solid darkgrey;
+}
+
 
 /*Posts*/
 .reply-badge-text {
@@ -125,6 +168,18 @@ body {
     text-align: center;
     margin: auto;
     opacity: 0.8;
+}
+
+.message-detail-title {
+    color: black;
+    font-weight: bold;
+}
+
+.message-detail-body {
+    color: black;
+    text-shadow: .5px .5px black;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 /*PhotoAlbums/FamilyAlbums*/
