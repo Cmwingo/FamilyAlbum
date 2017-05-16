@@ -123,7 +123,7 @@ namespace FamilyAlbum.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return Redirect("/posts/familyposts");
             }
             return View(reply);
         }
@@ -153,7 +153,7 @@ namespace FamilyAlbum.Controllers
             var reply = await _context.Reply.SingleOrDefaultAsync(m => m.ReplyId == id);
             _context.Reply.Remove(reply);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return Redirect("/posts/familyposts");
         }
 
         private bool ReplyExists(int id)

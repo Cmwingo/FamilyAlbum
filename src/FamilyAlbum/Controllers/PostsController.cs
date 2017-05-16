@@ -128,7 +128,7 @@ namespace FamilyAlbum.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("FamilyPosts");
             }
             return View(post);
         }
@@ -158,7 +158,7 @@ namespace FamilyAlbum.Controllers
             var post = await _context.Post.SingleOrDefaultAsync(m => m.PostId == id);
             _context.Post.Remove(post);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("FamilyPosts");
         }
 
         private bool PostExists(int id)

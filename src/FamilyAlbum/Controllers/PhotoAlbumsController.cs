@@ -12,9 +12,11 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FamilyAlbum.Controllers
 {
+    [Authorize]
     public class PhotoAlbumsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -141,7 +143,7 @@ namespace FamilyAlbum.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("UserAlbums");
             }
             return View(photoAlbum);
         }

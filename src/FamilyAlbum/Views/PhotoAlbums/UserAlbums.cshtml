@@ -10,6 +10,38 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+@if (Model != null)
+{
+    <div id="photoalbum-images">
+        @foreach (var album in Model)
+        {
+            <div class="photoalbum-wrapper flex-item">
+                <a asp-action="Details" asp-route-id="@album.PhotoAlbumId">
+                    <img class="photoalbum-icon" src="~/images/album.png" />
+                </a>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title fancy-handwriting">
+                                <a data-toggle="collapse" href="#@album.PhotoAlbumId">@Html.DisplayFor(modelItem => album.Name)</a>
+                            </h4>
+                        </div>
+                        <div id="@album.PhotoAlbumId" class="panel-collapse collapse fancy-handwriting">
+                            <div class="panel-body">@album.Description</div>
+                            <div class="panel-footer">
+                                @Html.DisplayFor(modelItem => album.DateStart) - @Html.DisplayFor(modelItem => album.DateEnd)
+                                <br />
+                                <a asp-action="Edit" asp-route-id="@album.PhotoAlbumId">Edit</a> |
+                                <a asp-action="Delete" asp-route-id="@album.PhotoAlbumId">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
 <table class="table">
     <thead>
         <tr>

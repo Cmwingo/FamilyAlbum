@@ -120,6 +120,42 @@ body {
     margin: auto;
 }
 
+/*PhotoAlbums/FamilyAlbums*/
+#photoalbums {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.photoalbum-wrapper {
+    margin-top: 2%;
+    width: auto;
+    position: relative;
+    text-align: center;
+    flex-basis: 25%;
+}
+
+.photoalbum-wrapper .panel-heading {
+        background-color:rgb(247, 244, 202)
+}
+
+.photoalbum-wrapper .panel-footer {
+        background-color:rgb(247, 244, 202)
+}
+.photoalbum-wrapper  .panel-title {
+    font-size: 135%;
+}
+
+.photoalbum-wrapper  .panel-body {
+    font-size: 135%;
+    background-color:rgb(247, 244, 202);
+}
+
+.photoalbum-icon {
+    width: 70%;
+    height: auto;
+}
+
 /*PhotoAlbums/Detail*/
 #photoalbum-images {
     display: flex;
