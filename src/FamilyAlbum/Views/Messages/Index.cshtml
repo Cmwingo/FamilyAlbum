@@ -25,52 +25,9 @@
                     }
                     <p class="message-sender">@item?.Sender?.FirstName</p>
                     <a asp-action="Details" asp-route-id="@item.MessageId" class="message-link"><h5 class="message-subject">@item?.Title</h5></a>
-                 </div>                
+                    <a asp-action="Delete" asp-route-id="@item.MessageId"><h6 class="message-delete-link">Delete</h6></a>
+                 </div>
             }
         }
     }
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-    @foreach (var recipient in item.Recipients)
-    {
-        @if (recipient.ApplicationUserId == ViewBag.CurrentUserId)
-        {
-            <tr>
-                <td>
-                    @if (item.Read == false)
-                    {
-                        <img src="~/images/newsm.png" />
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MessageId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MessageId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MessageId">Delete</a>
-                </td>
-            </tr>
-            }
-        }
-    }
-    </tbody>
-</table>

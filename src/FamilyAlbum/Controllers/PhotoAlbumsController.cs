@@ -226,6 +226,7 @@ namespace FamilyAlbum.Controllers
                 long size = file.Length;
                 using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                 {
+                    
                     await file.CopyToAsync(fileStream);
                 }
                 var filePath = Path.Combine("/uploads/" + currentUser.Id, file.FileName);

@@ -19,32 +19,6 @@
             <h1><a asp-controller="families">Join a Family</a></h1>
         </div>
     }
-    else
-    {
-        <h3>Member of the @Model.Family.Name Family</h3>
-    }
-    <h2>Profile</h2>
-    <h3>Welcome back @Model?.FirstName @Model?.LastName</h3>
-
-    <a asp-controller="families">Family</a>
-    <br />
-    <a asp-controller="photoalbums">Photo Albums</a>
-    <br />
-    <a asp-controller="images">Images</a>
-    <br />
-    <a asp-controller="messages">Messages</a>
-    <br />
-    <a asp-controller="posts">Posts</a>
-    <br />
-    <a asp-controller="posts" asp-action="FamilyPosts">Family Posts</a>
-    <br />
-    <a asp-controller="photoalbums" asp-action="UserAlbums">User Albums</a>
-    <br />
-    <a asp-controller="photoalbums" asp-action="FamilyAlbums">Family Albums</a>
-
-
-
-
 }
 else
 {

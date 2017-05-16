@@ -39,65 +39,12 @@
                     <h4 class="list-group-item-heading">@reply.User?.FirstName replied -- @timeSpan.Seconds seconds ago</h4>
                 }
                 <p class="list-group-item-text">@Html.DisplayFor(modelItem => reply.Body)</p>
+                @if (User.Identity.Name == reply.User.Email)
+                {
+                    <a asp-action="Edit" asp-controller="Replies" asp-route-id="@reply.ReplyId">Edit</a> <p style="display:inline"> | </p>
+                    <a asp-action="Delete" asp-controller="Replies" asp-route-id="@reply.ReplyId"> Delete </a>
+                }
             </li>
         </ul>
     }
-</div>
-
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PostTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PostTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TStamp)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TStamp)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.PostId">Edit</a> |
-    <a asp-action="FamilyPosts">Back to List</a>
-</div>
-<div>
-    <h5>Replies:</h5>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Body)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var reply in Model.Replies)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => reply.Body) by @reply.User?.FirstName
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 </div>

@@ -90,6 +90,11 @@ body {
     font-family: 'Architects Daughter', cursive;    
 }
 
+.message .message-delete-link {
+    text-align: right;
+    display:block;
+    margin-right: 1%;
+}
 .message-sender {
     font-size: 125%;
     padding: 2px 2px;
@@ -111,13 +116,15 @@ body {
 /*Message/Detail*/
 
 #message-detail {
-    height: 800px;
+    height: 100%;
     width: 50%;
+    background-position-x:50%;
     background-image: url(../images/albumpage.jpg);
     background-size: cover;
-    padding-top: 50px;
+    padding-top: 4%;
     text-align: center;
     margin: auto;
+    opacity: 0.8;
 }
 
 /*PhotoAlbums/FamilyAlbums*/

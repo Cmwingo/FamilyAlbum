@@ -7,7 +7,9 @@
 
 <h2 class="fancy-handwriting">@Html.DisplayFor(model => model.Name) Album</h2>
 <h4 class="fancy-handwriting">@Html.DisplayFor(model => model.DateStart) - @Html.DisplayFor(model => model.DateEnd)</h4>
-@if (Model.Images != null)
+<a asp-action="Add" asp-route-id="@Model.PhotoAlbumId">Add a photo</a>
+
+@if (Model.Images.Count != 0)
 {
     <div id="photoalbum-images">
         @foreach (var image in Model.Images)
@@ -18,6 +20,11 @@
             </div>
         }
      </div>
+}
+else
+{
+    <h3>There are no images in this album yet. <a asp-action="Add" asp-route-id="@Model.PhotoAlbumId">Add a photo to get started.</a>
+</h3>
 }
 
 

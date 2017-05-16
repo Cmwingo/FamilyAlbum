@@ -16,62 +16,6 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Body)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TStamp)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    Posted By
-                </th>
-                <th>
-                    Replies
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model)
-    {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TStamp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.FirstName)
-                </td>
-                <td>
-                    @item?.Replies?.Count
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a> |
-                    <a asp-controller="Replies" asp-action="Create" asp-route-postId="@item.PostId">Reply</a>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
     @foreach (var item in Model)
     {
         <div class="post">
@@ -82,7 +26,7 @@ else
                 </a>
                 @if (User.Identity.Name == item.User.Email)
                 {
-                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a>
+                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> <p style="display:inline"> | </p>
                     <a asp-action="Delete" asp-route-id="@item.PostId"> Delete </a>
                 }
             </div>
