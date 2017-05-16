@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87B3A56F-9701-4756-8BE6-10C50ECA0AEB}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		src\FamilyAlbum\README.md = src\FamilyAlbum\README.md
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FamilyAlbum", "src\FamilyAlbum\FamilyAlbum.xproj", "{734C451D-7E90-415C-8412-4545D420A86C}"
