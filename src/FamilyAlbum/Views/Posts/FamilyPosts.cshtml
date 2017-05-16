@@ -80,6 +80,11 @@ else
                     <h4 class="list-group-item-heading">@Html.DisplayFor(modelItem => item.Title)<p class="reply-badge-text">Replies <span class="badge">@item?.Replies?.Count</span></p></h4>
                     <p class="list-group-item-text">-- Posted by @Html.DisplayFor(modelItem => item.User.FirstName) on @Html.DisplayFor(modelItem => item.PostTime)</p>                    
                 </a>
+                @if (User.Identity.Name == item.User.Email)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.PostId"> Delete </a>
+                }
             </div>
         </div>
     }
