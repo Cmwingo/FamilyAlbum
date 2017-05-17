@@ -56,7 +56,7 @@
             <h2>@user?.Family?.Name Family</h2>
             @if(user.Family.PhotoURL == null)
             {
-                <a asp-controller="families" asp-action="Edit" asp-route-id="@user.Family.FamilyId">Add a family photo</a>
+                <h3><a asp-controller="families" asp-action="Edit" asp-route-id="@user.Family.FamilyId">Add a family photo</a></h3>
             }
             else
             {

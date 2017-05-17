@@ -97,8 +97,10 @@ namespace FamilyAlbum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FamilyId,Motto,Name,PhotoURL")] Family family)
+        public async Task<IActionResult> Edit(int id, [Bind("FamilyId,Motto,Name,PhotoURL")] Family family, string portraitCropped)
         {
+            string filePath = ProcessImage(portraitCropped);
+            family.PhotoURL = filePath;
             if (id != family.FamilyId)
             {
                 return NotFound();
@@ -278,6 +280,29 @@ namespace FamilyAlbum.Controllers
                 return Redirect("/");
             }
             return View(family);
+        }
+
+        private string ProcessImage(string croppedImage)
+        {
+            var webRoot = _env.WebRootPath;
+            string filePath = String.Empty;
+            try
+            {
+                string base64 = croppedImage;
+                byte[] bytes = Convert.FromBase64String(base64.Split(',')[1]);
+                filePath = "/Uploads/Portraits" + Guid.NewGuid() + ".png";
+                using (FileStream stream = new FileStream(Path.Combine(webRoot, filePath), FileMode.Create))
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                    stream.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+                string st = ex.Message;
+            }
+
+            return filePath;
         }
     }
 }

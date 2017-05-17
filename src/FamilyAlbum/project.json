@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-FamilyAlbum-abaf733f-dd9f-43cd-b7f7-3850db52e92f",
 
   "dependencies": {
@@ -46,7 +46,8 @@
       "type": "build"
     },
     "Microsoft.AspNetCore.Session": "1.0.0",
-    "Microsoft.Extensions.Caching.Memory": "1.0.0"
+    "Microsoft.Extensions.Caching.Memory": "1.0.0",
+    "jquery.jcrop.js": "0.9.12"
   },
 
   "tools": {

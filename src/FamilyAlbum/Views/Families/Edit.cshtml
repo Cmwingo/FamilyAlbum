@@ -4,8 +4,6 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 @*@<script type="text/javascript">
     $(document).ready(function () {
         $('#family-image').submit(function (event) {
@@ -59,7 +57,7 @@
     });
 </script>*@
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
@@ -71,7 +69,7 @@
             }
         });
     });
-</script>
+</script>*@
 
 <h2>Edit</h2>
 
@@ -95,14 +93,46 @@
                 <span asp-validation-for="Motto" class="text-danger" />
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="PhotoURL" class="col-md-2 control-label"></label>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.PhotoURL, htmlAttributes: new { @class = "" })
             <div class="col-md-10">
-                <input asp-for="PhotoURL" class="form-control" id="file-path" value="@TempData["Path"]"/>
-                <span asp-validation-for="PhotoURL" class="text-danger" />
+                @Html.EditorFor(model => model.PhotoURL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhotoURL, "", new { @class = "text-danger" })
             </div>
-            <img src="@TempData["Path"]" height="100" width="100"/>
+        </div>*@
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhotoURL, new { @class = "" })
+            <input type="file" id="flPhoto" name="upload">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Width: <label id="lblWidth">200px</label>
+                            Height: <label id="lblHeight">200px</label>
+                        </td>
+                        <td>
+                            <a href="#" id="hlcropImage" style="vertical-align:top;">Crop Image</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="height:400px; width:400px; overflow:auto;">
+                                <img id="imgEmpPhoto" src="@Model.PhotoURL" alt="Portrait">
+                            </div>
+                        </td>
+                        <td>
+                            <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <p>
+            <img id="imgCropped" src="#" style="display:none;">
+        </p>
+        <input type="hidden" name="avatarCropped" id="avatarCropped">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -110,7 +140,6 @@
         </div>
     </div>
 </form>
-<div id="upload-view"></div>
 
 <div>
     <a asp-action="Index">Back to List</a>
@@ -118,4 +147,118 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link href="~/css/jquery.Jcrop.min.css" rel="stylesheet" />
+    <script src="~/js/jquery.Jcrop.min.js"></script>
+    <script type="text/javascript">
+
+        var imageCropWidth = 0;
+        var imageCropHeight = 0;
+        var cropPointX = 0;
+        var cropPointY = 0;
+        var jcropApi;
+
+        $(document).ready(function () {
+            //initCrop();
+        });
+
+        $("#hlcropImage").on("click", function (e) {
+
+            /*
+            The event.preventDefault() method stops the default action of
+            an element from happening. For example: Prevent a submit button
+            from submitting a form. Prevent a link from following the URL
+            */
+
+            e.preventDefault();
+            cropImage();
+        });
+
+        function initCrop() {
+            $('#imgEmpPhoto').Jcrop({
+                onChange: setCoordsAndImgSize,
+                aspectRatio: 0, // 1 means will be same for height and weight
+                onSelect: setCoordsAndImgSize
+            }, function () { jcropApi = this });
+        }
+
+        function showCoordinate() {
+            $("#lblWidth").text(imageCropWidth + "px");
+            $("#lblHeight").text(imageCropHeight + "px");
+        }
+
+        function setCoordsAndImgSize(e) {
+
+            imageCropWidth = e.w;
+            imageCropHeight = e.h;
+
+            cropPointX = e.x;
+            cropPointY = e.y;
+
+            $("#lblWidth").text(imageCropWidth + "px");
+            $("#lblHeight").text(imageCropHeight + "px");
+        }
+
+        function cropImage() {
+
+            if (imageCropWidth == 0 && imageCropHeight == 0) {
+                alert("Please select crop area.");
+                return;
+            }
+
+            var img = $("#imgEmpPhoto").attr("src");
+
+            /*Show cropped image*/
+            showCroppedImage();
+        }
+
+        function showCroppedImage() {
+            var x1 = cropPointX;
+            var y1 = cropPointY;
+
+            var width = imageCropWidth;
+            var height = imageCropHeight;
+            var canvas = $("#canvas")[0];
+            var context = canvas.getContext('2d');
+            var img = new Image();
+            img.onload = function () {
+                canvas.height = height;
+                canvas.width = width;
+                context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
+                $('#avatarCropped').val(canvas.toDataURL());
+            };
+            img.src = $('#imgEmpPhoto').attr("src");
+        }
+
+        function readFile(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+                if (jcropApi != null) {
+                    jcropApi.destroy();
+                }
+                reader.onload = function (e) {
+                    $('#imgEmpPhoto').attr('src', "");
+                    var img = $('#imgEmpPhoto').attr('src', e.target.result);
+
+                    /*Current uploaded image size*/
+                    var width = img[0].height;
+                    var height = img[0].width;
+                    $("#lblWidth").text(width + "px");
+                    $("#lblHeight").text(height + "px");
+
+                    //InitCrop must call here otherwise it will not work
+                    initCrop();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $('#flPhoto').change(function () {
+            readFile(this);
+            //initCrop();
+        });
+</script>
 }
