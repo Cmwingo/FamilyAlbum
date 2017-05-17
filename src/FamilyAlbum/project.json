@@ -47,7 +47,9 @@
     },
     "Microsoft.AspNetCore.Session": "1.0.0",
     "Microsoft.Extensions.Caching.Memory": "1.0.0",
-    "jquery.jcrop.js": "0.9.12"
+    "jquery.jcrop.js": "0.9.12",
+    "ExifLib": "1.7.0",
+    "SkiaSharp": "1.57.1"
   },
 
   "tools": {

@@ -132,7 +132,7 @@
         <p>
             <img id="imgCropped" src="#" style="display:none;">
         </p>
-        <input type="hidden" name="avatarCropped" id="avatarCropped">
+        <input type="hidden" name="portraitCropped" id="portraitCropped">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -224,7 +224,7 @@
                 canvas.height = height;
                 canvas.width = width;
                 context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
-                $('#avatarCropped').val(canvas.toDataURL());
+                $('#portraitCropped').val(canvas.toDataURL());
             };
             img.src = $('#imgEmpPhoto').attr("src");
         }
