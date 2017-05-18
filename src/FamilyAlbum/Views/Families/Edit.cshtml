@@ -3,6 +3,7 @@
 @using ExifLib
 @using SkiaSharp
 @using System.Drawing
+@using ImageMagick
 
 @{
     ViewData["Title"] = "Edit";
@@ -123,7 +124,7 @@
                     <tr>
                         <td>
                             <div style="height:600px; width:600px; overflow:auto;">
-                                <img id="imgEmpPhoto" src="@Model.PhotoURL" alt="Portrait">
+                                <img id="imgEmpPhoto" src="@Model.PhotoURL" height="600" alt="Portrait">
                             </div>
                         </td>
                         <td>
@@ -151,9 +152,9 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <link href="~/css/jquery.Jcrop.min.css" rel="stylesheet" />
-    <script src="~/js/jquery.Jcrop.min.js"></script>
-    <script src="~/js/load-image.all.min.js"></script> 
+    <script src="~/js/jquery.Jcrop.js"></script>
+    <link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v2.0.0-RC1/css/Jcrop.css" type="text/css" />    
+    <script src="~/js/load-image.all.min.js"></script>
     <script type="text/javascript">
 
         var imageCropWidth = 0;
@@ -161,6 +162,8 @@
         var cropPointX = 0;
         var cropPointY = 0;
         var jcropApi;
+        var rotation = 0;
+        var orientation = 1;
 
         $(document).ready(function () {
             //initCrop();
@@ -173,7 +176,6 @@
             an element from happening. For example: Prevent a submit button
             from submitting a form. Prevent a link from following the URL
             */
-
             e.preventDefault();
             cropImage();
         });
@@ -181,8 +183,10 @@
         function initCrop() {
             $('#imgEmpPhoto').Jcrop({
                 onChange: setCoordsAndImgSize,
-                aspectRatio: 0, // 1 means will be same for height and weight
-                onSelect: setCoordsAndImgSize
+                aspectRatio: 0, // 1 means will be same for height and width
+                onSelect: setCoordsAndImgSize,
+                maxSize: [600, 600],
+                rotate: rotation
             }, function () { jcropApi = this });
         }
 
@@ -192,7 +196,6 @@
         }
 
         function setCoordsAndImgSize(e) {
-
             imageCropWidth = e.w;
             imageCropHeight = e.h;
 
@@ -234,29 +237,13 @@
             img.src = $('#imgEmpPhoto').attr("src");
         }
 
-        function _arrayBufferToBase64(buffer) {
-            var binary = ''
-            var bytes = new Uint8Array(buffer)
-            var len = bytes.byteLength;
-            for (var i = 0; i < len; i++) {
-                binary += String.fromCharCode(bytes[i])
-            }
-            return window.btoa(binary);
-        }
-
         function readFile(input) {
-            var orientation;
-            loadImage.parseMetaData(input.files[0], function (data)
-            {
-                orientation = data.exif.get('Orientation');
-                console.log(orientation);
-                if (orientation == 8) {
-                    input.files[0].Rotate
-                    debugger;
-                }
-            })
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
+                var canvas = $("#canvas")[0];
+                var context = canvas.getContext('2d');
+                var orientation;
+
                 /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
                 if (jcropApi != null)
                 {
@@ -265,6 +252,52 @@
                 reader.onload = function (e) {
                     $('#imgEmpPhoto').attr('src', "");
                     var img = $('#imgEmpPhoto').attr('src', e.target.result);
+                                        loadImage.parseMetaData(input.files[0], function (data) {
+                        orientation = data.exif.get('Orientation');
+                        console.log(orientation);
+                        switch (orientation) {
+
+                            case 2:
+                                // horizontal flip
+                                context.translate(canvas.width, 0);
+                                context.scale(-1, 1);
+                                break;
+                            case 3:
+                                // 180° rotate left
+                                context.translate(canvas.width, canvas.height);
+                                context.rotate(Math.PI);
+                                break;
+                            case 4:
+                                // vertical flip
+                                context.translate(0, canvas.height);
+                                context.scale(1, -1);
+                                break;
+                            case 5:
+                                // vertical flip + 90 rotate right
+                                context.rotate(0.5 * Math.PI);
+                                context.scale(1, -1);
+                                break;
+                            case 6:
+                                // 90° rotate right
+                                context.rotate(0.5 * Math.PI);
+                                context.translate(0, -canvas.height);
+                                break;
+                            case 7:
+                                // horizontal flip + 90 rotate right
+                                context.rotate(0.5 * Math.PI);
+                                context.translate(canvas.width, -canvas.height);
+                                context.scale(-1, 1);
+                                break;
+                            case 8:
+                                // 90° rotate left
+                                context.rotate(-0.5 * Math.PI);
+                                context.translate(-canvas.width, 0);
+                                rotation = 270;
+                                $('#imgEmpPhoto').attr('class', 'rotate-270');
+                                break;
+                        }
+                    })
+
                     /*Current uploaded image size*/
                     var width = img[0].height;
                     var height = img[0].width;
@@ -273,7 +306,55 @@
 
                     //InitCrop must call here otherwise it will not work
                     initCrop();
-                }                
+                }
+                reader.onloadend = function (e) {
+                    loadImage.parseMetaData(input.files[0], function (data) {
+                        orientation = data.exif.get('Orientation');
+                        console.log(orientation);
+                        debugger;
+                        switch (orientation) {
+
+                            case 2:
+                                // horizontal flip
+                                context.translate(canvas.width, 0);
+                                context.scale(-1, 1);
+                                break;
+                            case 3:
+                                // 180° rotate left
+                                context.translate(canvas.width, canvas.height);
+                                context.rotate(Math.PI);
+                                break;
+                            case 4:
+                                // vertical flip
+                                context.translate(0, canvas.height);
+                                context.scale(1, -1);
+                                break;
+                            case 5:
+                                // vertical flip + 90 rotate right
+                                context.rotate(0.5 * Math.PI);
+                                context.scale(1, -1);
+                                break;
+                            case 6:
+                                // 90° rotate right
+                                context.rotate(0.5 * Math.PI);
+                                context.translate(0, -canvas.height);
+                                break;
+                            case 7:
+                                // horizontal flip + 90 rotate right
+                                context.rotate(0.5 * Math.PI);
+                                context.translate(canvas.width, -canvas.height);
+                                context.scale(-1, 1);
+                                break;
+                            case 8:
+                                // 90° rotate left
+                                //context.rotate(-0.5 * Math.PI);
+                                //context.translate(-canvas.width, 0);
+                                //$('#imgEmpPhoto').addClass('rotate-270');
+                                debugger;
+                                break;
+                        }
+                    })
+                }
                 reader.readAsDataURL(input.files[0]);
             }
         }

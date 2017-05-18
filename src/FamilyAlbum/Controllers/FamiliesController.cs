@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using ExifLib;
 using SkiaSharp;
+using ImageMagick;
 
 namespace FamilyAlbum.Controllers
 {
@@ -293,11 +294,8 @@ namespace FamilyAlbum.Controllers
                 string base64 = croppedImage;
                 byte[] bytes = Convert.FromBase64String(base64.Split(',')[1]);
                 filePath = "/Uploads/Portraits" + Guid.NewGuid() + ".png";
-                int orientationCase = 0;
                 using (FileStream stream = new FileStream(Path.Combine(webRoot, filePath), FileMode.Create))
                 {
-                    ExifReader exifReader = new ExifReader(stream);
-                    exifReader.GetTagValue<int>(ExifTags.Orientation, out orientationCase);
                     stream.Write(bytes, 0, bytes.Length);
                     stream.Flush();
                 }

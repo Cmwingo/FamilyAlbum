@@ -1,5 +1,5 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="js/jquery.jcrop.min.js" />
+/// <reference path="js/jquery.jcrop.js" />
 /// <reference path="js/load-image.all.min.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />

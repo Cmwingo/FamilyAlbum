@@ -50,8 +50,8 @@
     "jquery.jcrop.js": "0.9.12",
     "ExifLib": "1.7.0",
     "SkiaSharp": "1.57.1",
-    "CoreCompat.System.Drawing": "1.0.0-beta006"
-  },
+    "CoreCompat.System.Drawing": "1.0.0-beta006",
+    "Magick.NET.Core-Q8": "7.0.5.502" },
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",

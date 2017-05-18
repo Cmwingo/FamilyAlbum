@@ -105,10 +105,11 @@ body {
 
 /*Family/Edit*/
 
-#imgEmpPhoto {
-    image-orientation: from-image;
+.rotate-270 {
+    -ms-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
 }
-
 /*Posts*/
 .reply-badge-text {
     text-align:right;
