@@ -49,7 +49,8 @@
     "Microsoft.Extensions.Caching.Memory": "1.0.0",
     "jquery.jcrop.js": "0.9.12",
     "ExifLib": "1.7.0",
-    "SkiaSharp": "1.57.1"
+    "SkiaSharp": "1.57.1",
+    "CoreCompat.System.Drawing": "1.0.0-beta006"
   },
 
   "tools": {

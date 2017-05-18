@@ -103,6 +103,11 @@ body {
     border-bottom: 2px solid darkgrey;
 }
 
+/*Family/Edit*/
+
+#imgEmpPhoto {
+    image-orientation: from-image;
+}
 
 /*Posts*/
 .reply-badge-text {

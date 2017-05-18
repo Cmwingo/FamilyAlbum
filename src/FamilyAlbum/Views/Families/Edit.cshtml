@@ -1,5 +1,9 @@
 @model FamilyAlbum.Models.Family
 
+@using ExifLib
+@using SkiaSharp
+@using System.Drawing
+
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -118,7 +122,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div style="height:400px; width:400px; overflow:auto;">
+                            <div style="height:600px; width:600px; overflow:auto;">
                                 <img id="imgEmpPhoto" src="@Model.PhotoURL" alt="Portrait">
                             </div>
                         </td>
@@ -149,6 +153,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <link href="~/css/jquery.Jcrop.min.css" rel="stylesheet" />
     <script src="~/js/jquery.Jcrop.min.js"></script>
+    <script src="~/js/load-image.all.min.js"></script> 
     <script type="text/javascript">
 
         var imageCropWidth = 0;
@@ -229,19 +234,37 @@
             img.src = $('#imgEmpPhoto').attr("src");
         }
 
-        function readFile(input) {
+        function _arrayBufferToBase64(buffer) {
+            var binary = ''
+            var bytes = new Uint8Array(buffer)
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i])
+            }
+            return window.btoa(binary);
+        }
 
+        function readFile(input) {
+            var orientation;
+            loadImage.parseMetaData(input.files[0], function (data)
+            {
+                orientation = data.exif.get('Orientation');
+                console.log(orientation);
+                if (orientation == 8) {
+                    input.files[0].Rotate
+                    debugger;
+                }
+            })
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
-                if (jcropApi != null) {
+                if (jcropApi != null)
+                {
                     jcropApi.destroy();
                 }
                 reader.onload = function (e) {
                     $('#imgEmpPhoto').attr('src', "");
                     var img = $('#imgEmpPhoto').attr('src', e.target.result);
-
                     /*Current uploaded image size*/
                     var width = img[0].height;
                     var height = img[0].width;
@@ -250,8 +273,7 @@
 
                     //InitCrop must call here otherwise it will not work
                     initCrop();
-                }
-
+                }                
                 reader.readAsDataURL(input.files[0]);
             }
         }
