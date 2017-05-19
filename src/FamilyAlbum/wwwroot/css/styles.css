@@ -50,6 +50,10 @@
         padding-top: 10px;
         padding-bottom: 10px;
     }
+
+    .navbar-collapse.collapse.in {
+        display: block!important;
+    }
 }
 
 /*Parchment Header*/
@@ -86,6 +90,30 @@
 
 body {
     background-image: url(../images/parchment-background.jpg);
+}
+
+/*Home/About*/
+.carousel {
+    margin: 2% auto;
+    width: 100%;
+}
+
+.carousel-inner img {
+    margin: auto;
+}
+
+.block-letter {
+    font-size: 200%;
+}
+
+#about p {
+    font-style: italic;
+}
+
+/*Home/Contact*/
+footer {
+    text-align: right;
+    font-style: italic;
 }
 
 /*Family/Index*/
