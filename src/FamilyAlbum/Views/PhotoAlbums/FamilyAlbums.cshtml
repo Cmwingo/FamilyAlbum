@@ -24,7 +24,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title fancy-handwriting">
-                                <a data-toggle="collapse" href="#@album.PhotoAlbumId">@Html.DisplayFor(modelItem => album.Name) created by @album?.User.FirstName</a>
+                                <a data-toggle="collapse" href="#@album?.PhotoAlbumId">@Html.DisplayFor(modelItem => album.Name) created by @album?.User?.FirstName</a>
                             </h4>
                         </div>
                         <div id="@album.PhotoAlbumId" class="panel-collapse collapse fancy-handwriting">

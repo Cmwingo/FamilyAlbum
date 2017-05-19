@@ -28,7 +28,7 @@ namespace FamilyAlbum.Controllers
             var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
             ViewBag.CurrentUserId = currentUser.Id;
             List<ApplicationUserMessage> messages = new List<ApplicationUserMessage>();
-            List<Message> allMessages = await _context.Message.Include(m => m.Recipients).ThenInclude(r => r.Message).ToListAsync();
+            List<Message> allMessages = await _context.Message.Include(m => m.Recipients).ThenInclude(r => r.Message).ThenInclude(m => m.Sender).ToListAsync();
             List<Message> userMessages = new List<Message>();
             foreach (var message in allMessages)
             {

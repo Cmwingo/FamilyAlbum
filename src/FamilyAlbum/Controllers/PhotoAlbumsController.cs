@@ -50,7 +50,7 @@ namespace FamilyAlbum.Controllers
         {
             var currentUser = _context.ApplicationUser.Where(au => au.UserName == User.Identity.Name).Include(au => au.Family).FirstOrDefault();
 
-            return View(await _context.PhotoAlbum.Where(pa => pa.Family == currentUser.Family).Include(pa => pa.Images).ToListAsync());
+            return View(await _context.PhotoAlbum.Where(pa => pa.Family == currentUser.Family).Include(pa => pa.Images).Include(pa => pa.User).ToListAsync());
 
         }
 
