@@ -43,7 +43,7 @@ namespace FamilyAlbum.Controllers
                 return NotFound();
             }
 
-            var image = await _context.Image.SingleOrDefaultAsync(m => m.ImageId == id);
+            var image = await _context.Image.Where(m => m.ImageId == id).Include(m => m.PhotoAlbum).ThenInclude(pa => pa.User).SingleOrDefaultAsync();
             if (image == null)
             {
                 return NotFound();
@@ -131,7 +131,7 @@ namespace FamilyAlbum.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return Redirect("/photoalbums/useralbums");
             }
             return View(image);
         }

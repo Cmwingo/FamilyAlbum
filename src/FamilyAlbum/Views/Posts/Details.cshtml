@@ -41,6 +41,7 @@
                 <p class="list-group-item-text">@Html.DisplayFor(modelItem => reply.Body)</p>
                 @if (User.Identity.Name == reply.User.Email)
                 {
+                    <hr />
                     <a asp-action="Edit" asp-controller="Replies" asp-route-id="@reply.ReplyId">Edit</a> <p style="display:inline"> | </p>
                     <a asp-action="Delete" asp-controller="Replies" asp-route-id="@reply.ReplyId"> Delete </a>
                 }

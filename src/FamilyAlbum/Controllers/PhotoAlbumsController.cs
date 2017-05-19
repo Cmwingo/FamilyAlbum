@@ -239,7 +239,7 @@ namespace FamilyAlbum.Controllers
                 currentAlbum.Images.Add(newImage);
                 await _context.SaveChangesAsync();
                 ViewBag.Result = "File Uploaded!";
-                return RedirectToAction("Add", new { id = albumId });
+                return RedirectToAction("UserAlbums");
             }
             else
             {

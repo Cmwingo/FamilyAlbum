@@ -14,27 +14,6 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ImageId" />
         <div class="form-group">
-            <label asp-for="Caption" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Caption" class="form-control" />
-                <span asp-validation-for="Caption" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Date" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="FilePath" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="FilePath" class="form-control" />
-                <span asp-validation-for="FilePath" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
             <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Name" class="form-control" />
@@ -42,9 +21,27 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="UploadTime" class="col-md-2 control-label"></label>
+            <label asp-for="Caption" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="UploadTime" class="form-control" />
+                <input asp-for="Caption" class="form-control" />
+                <span asp-validation-for="Caption" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input asp-for="Date" class="form-control" type="hidden" />
+                <span asp-validation-for="Date" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input asp-for="FilePath" class="form-control" type="hidden" />
+                <span asp-validation-for="FilePath" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input asp-for="UploadTime" class="form-control" type="hidden" />
                 <span asp-validation-for="UploadTime" class="text-danger" />
             </div>
         </div>
@@ -57,7 +54,7 @@
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="UserAlbums" asp-controller="PhotoAlbums">Back to albums</a>
 </div>
 
 @section Scripts {
