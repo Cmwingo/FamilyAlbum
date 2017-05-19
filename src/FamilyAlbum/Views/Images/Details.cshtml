@@ -15,7 +15,8 @@
 <div>
     @if (Model.PhotoAlbum?.User.Email == User.Identity.Name)
     {
-       <h3><a asp-action="Edit" asp-route-id="@Model.ImageId">Edit</a></h3> 
+       <h3><a asp-action="Edit" asp-route-id="@Model.ImageId">Edit</a></h3>
+       <h4><a asp-action="Delete" asp-route-id="@Model.ImageId">Delete</a></h4>
     }
     <p><a asp-controller="PhotoAlbums" asp-action="UserAlbums" asp-route-id="@Model?.PhotoAlbum?.PhotoAlbumId">Back to Albums</a></p>
 </div>

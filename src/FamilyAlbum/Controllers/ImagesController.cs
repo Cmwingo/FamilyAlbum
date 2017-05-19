@@ -161,7 +161,7 @@ namespace FamilyAlbum.Controllers
             var image = await _context.Image.SingleOrDefaultAsync(m => m.ImageId == id);
             _context.Image.Remove(image);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return Redirect("/PhotoAlbums/UserAlbums");
         }
 
         private bool ImageExists(int id)
